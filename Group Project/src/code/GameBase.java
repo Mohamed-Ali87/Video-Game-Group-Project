@@ -152,7 +152,7 @@ public abstract class GameBase extends    Applet
 	public void mouseExited   (MouseEvent e) { }
 	
 	
-	public final void keyPressed(KeyEvent e)
+	public  void keyPressed(KeyEvent e)
 	{		
 		pressing[e.getKeyCode()] = true;
 	}
@@ -160,7 +160,7 @@ public abstract class GameBase extends    Applet
 	
 	public final void keyReleased(KeyEvent e)
 	{
-		pressing[e.getKeyCode()] = false;
+		//pressing[e.getKeyCode()] = false;
     }
 
 	

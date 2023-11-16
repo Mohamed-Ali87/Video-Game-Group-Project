@@ -22,6 +22,7 @@ public class Rect
 	boolean physicsOFF = false;
 	
 	
+	
 	public Rect(int x, int y, int w, int h)
 	{
 		this.x = x;
@@ -59,8 +60,10 @@ public class Rect
 		x += vx;
 		y += vy;
 		
-		vy += ay;
+		//vy += ay;
 	}
+	
+	
 	
 	public void jump(int dy)
 	{
