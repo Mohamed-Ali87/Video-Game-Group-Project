@@ -1,6 +1,8 @@
 package code;
 import java.awt.*;
-
+//hello
+//hello
+//Test
 public class Wall extends Rect
 {
 	Rect resizer;
