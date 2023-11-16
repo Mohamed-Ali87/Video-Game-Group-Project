@@ -1,5 +1,5 @@
 
-public class StackArr 
+public class StackArr 	//test
 {
 	private int A [];
 	private int top = -1;	// top = -1 means the stack is empty
