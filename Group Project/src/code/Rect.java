@@ -11,9 +11,8 @@ public class Rect
 	double vx = 0;
 	double vy = 0;
 	
-	double ay = G;
-	
-	static final double G = 0.4;
+	double frictionFactor = 0.99;
+	double a = .5;
 	
 	Color c = Color.BLACK;
 	
@@ -59,7 +58,7 @@ public class Rect
 		x += vx;
 		y += vy;
 		
-		vy += ay;
+		//vy += ay;
 	}
 	
 	public void jump(int dy)
@@ -108,24 +107,28 @@ public class Rect
 	// Setup the Rect to go Left when the move function is called in GameLoop  //
 	//-------------------------------------------------------------------------//
 	
-	public void goLT(int dx)
+	public void goLT(double dx)
 	{
-		vx = -dx;
+		if  (vx >= -dx) vx -= a;
+		else vx  = -dx;
 	}
 	
-	public void goRT(int dx)
+	public void goRT(double dx)
 	{
-		vx = dx;
+		if  (vx <= dx) vx += a;
+		else vx  = dx;
 	}
 	
-	public void goUP(int dy)
+	public void goUP(double dy)
 	{
-		vy = -dy;
+		if  (vy >= -dy) vy -= a;
+		else vy  = -dy;
 	}
 	
-	public void goDN(int dy)
+	public void goDN(double dy)
 	{
-		vy = dy;
+		if  (vy <= dy) vy += a;
+		else vy  = dy;
 	}
 	
 	public void physicsOFF()
@@ -223,9 +226,14 @@ public class Rect
 		y = r.y +  r.h + 1;
 	}
 	
-	public void applyFrictionWithFloor()
+	public void applyFrictionHorizontally()	{vx = vx*frictionFactor;}	//makes you stop in your tracks horizontally
+	
+	public void applyFrictionVertically()	{vy = vy*frictionFactor;}	//makes you stop in your tracks horizontally
+	
+	public void applyFriction()	
 	{
-		vx = vx *.6;
+		vy = vy*.9;
+		vx = vx*.9;
 	}
 	
 	public void stopsFalling()
