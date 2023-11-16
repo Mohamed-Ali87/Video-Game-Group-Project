@@ -2,8 +2,8 @@
 public class Camera 
 {
 	static double x = 0;
-	static double y = 1350;
-	static double z;
+	static double y = 0;
+//	static double z;
 	//*/
 	public static void goLT(double dx)
 	{
