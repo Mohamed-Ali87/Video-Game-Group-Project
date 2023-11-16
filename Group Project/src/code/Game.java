@@ -10,7 +10,7 @@ public class Game extends GameBase
 	//note: make a class of entities and give each entity its own cooldown timer and fireBullet method
 	//player's fireBullet method will involve input,
 	//AI fireBullet method will shoot based on player's location
-	//s
+	
 	Rect c     		   = new Rect(100, 100, 35, 35);
 	double speed 	   = 5;
 	
@@ -22,10 +22,6 @@ public class Game extends GameBase
 	
 	Timer shotCooldown;
 	int   cooldownTime;	
-	
-	
-	//Rect b = new Rect(500, 500, 35, 35, Color.RED);
-	
 	
 	public void initialize()
 	{		
@@ -96,7 +92,6 @@ public class Game extends GameBase
 	public void paint(Graphics pen)
 	{
 	   c.draw(pen);
-	   //b.draw(pen);
 	   
 	   for (int j = 0; j < bullet.length; j++) if (bullet[j] != null) bullet[j].draw(pen);
 	}
