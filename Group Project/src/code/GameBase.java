@@ -160,7 +160,7 @@ public abstract class GameBase extends    Applet
 	
 	public final void keyReleased(KeyEvent e)
 	{
-		//pressing[e.getKeyCode()] = false;
+		pressing[e.getKeyCode()] = false;
     }
 
 	
