@@ -23,8 +23,12 @@ public class Game extends GameBase
 	Timer shotCooldown;
 	int   cooldownTime;	
 	
+	Image backgroundImage;
+	
 	public void initialize()
 	{		
+		backgroundImage = getImage(getDocumentBase(), "Final_Map.png");
+		
 		cooldownTime = 400;
 		
 		shotCooldown = new Timer(cooldownTime, new ActionListener() 
@@ -91,9 +95,39 @@ public class Game extends GameBase
 	
 	public void paint(Graphics pen)
 	{
-	   c.draw(pen);
+		//Windows 1920 x 1080
+		//pen.drawImage(backgroundImage, -1920 - Camera.x, -6480 - Camera.y, 7680, 7560, this);
+		
+		
+		//Mac 1440 x 900
+		pen.drawImage(backgroundImage, -1440 - Camera.x, -5400 - Camera.y, 5760, 6300, this);
+		
+		c.draw(pen);
 	   
-	   for (int j = 0; j < bullet.length; j++) if (bullet[j] != null) bullet[j].draw(pen);
+	    for (int j = 0; j < bullet.length; j++) if (bullet[j] != null) bullet[j].draw(pen);
+	}
+	
+	public void keyPressed(KeyEvent e)
+	{		
+		pressing[e.getKeyCode()] = true;
+		
+		int code = e.getExtendedKeyCode();
+		
+		/*
+		if(code == _T) Camera.moveUp(1080); 
+		if(code == _G) Camera.moveDown(1080);
+		if(code == _H) Camera.moveRight(1920);
+		if(code == _F) Camera.moveLeft(1920);
+		*/
+		if(code == _T) Camera.moveUp(900); 
+		if(code == _G) Camera.moveDown(900);
+		if(code == _H) Camera.moveRight(1440);
+		if(code == _F) Camera.moveLeft(1440);
+		
+		repaint();
+		
+		
+		
 	}
 
 }
