@@ -11,7 +11,6 @@ public class Rect
 	double vx = 0;
 	double vy = 0;
 	
-	double frictionFactor = 0.99;
 	double a = .5;
 	
 	Color c = Color.BLACK;
@@ -57,8 +56,6 @@ public class Rect
 	{
 		x += vx;
 		y += vy;
-		
-		//vy += ay;
 	}
 	
 	public void jump(int dy)
@@ -225,10 +222,6 @@ public class Rect
 	{
 		y = r.y +  r.h + 1;
 	}
-	
-	public void applyFrictionHorizontally()	{vx = vx*frictionFactor;}	//makes you stop in your tracks horizontally
-	
-	public void applyFrictionVertically()	{vy = vy*frictionFactor;}	//makes you stop in your tracks horizontally
 	
 	public void applyFriction()	
 	{
