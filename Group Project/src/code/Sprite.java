@@ -16,7 +16,7 @@ public class Sprite extends Rect
 	
 	boolean moving = false;
 	
-	public Sprite(String name, String[] pose, int imagecount, int start, String filetype, int x, int y, int w, int h)
+	public Sprite(String name, String[] pose, int imagecount, int start, String filetype, int ms, int x, int y, int w, int h)
 	{
 		super(x, y, w, h);
 		
@@ -24,9 +24,11 @@ public class Sprite extends Rect
 		
 		for(int i = 0; i < pose.length; i ++)
 		{
-			animation[i] = new Animation(name + "_" + pose[i], imagecount, start,  18, filetype);
+			animation[i] = new Animation(name + "_" + pose[i], imagecount, start,  ms, filetype);
 		}
 	}
+	
+	
 	
 	public void goLT(int dx)
 	{
@@ -65,15 +67,24 @@ public class Sprite extends Rect
 	}
 	
 	
+	
+	
 	public void draw(Graphics pen)
 	{
 		if (!moving)
 
-			pen.drawImage(animation[pose].getStaticImage(), (int)x, (int)y, (int)w, (int)h, null);
+			pen.drawImage(animation[pose].getStaticImage(), (int)x - Camera.x, (int)y - Camera.y, (int)w, (int)h, null);
 		
 		else
 		
-			pen.drawImage(animation[pose].getCurrentImage(), (int)x, (int)y, (int)w, (int)h, null);
+			pen.drawImage(animation[pose].getCurrentImage(), (int)x - Camera.x, (int)y - Camera.y, (int)w, (int)h, null);
 	}
+
+	public void update() {
+		// TODO Auto-generated method stub
+		animation[pose].getCurrentImage();
+	}
+
+	
 	
 }

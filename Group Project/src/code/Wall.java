@@ -11,7 +11,7 @@ public class Wall extends Rect
 		
 		resizer = new Rect(x+w-20, y+h-20, 20, 20);
 	}
-/*	
+	
 	public void moveBy(int dx, int dy)
 	{
 		super.moveBy(dx, dy);
@@ -25,10 +25,10 @@ public class Wall extends Rect
 		
 		resizer.moveBy(dw, dh);
 	}
-*/	
+
 	public String toString()
 	{
-		return "new Wall(" + x + ", " + y + ", " + w + ", " + h + ");";
+		return "wall[] = new Wall(" + (int)x + ", " + (int)y + ", " + (int)w + ", " + (int)h + ");";
 	}
 	
 	

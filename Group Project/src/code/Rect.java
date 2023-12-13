@@ -11,17 +11,23 @@ public class Rect
 	double vx = 0;
 	double vy = 0;
 	
-	double ay = G;
+	boolean hasSetV = false;
+	boolean isMovingUp = false;
+	boolean isMovingLeft = false;
+	boolean isJumping = false;
+	double ix;
+	double iy;
+	double jumpStartY;
+	double jumpStartX;
+	//double gravity = G;
+	
+	//double ay = G;
 	
 	static final double G = 0.4;
 	
 	Color c = Color.BLACK;
 	
 	boolean held = false;
-	
-	boolean physicsOFF = false;
-	
-	
 	
 	public Rect(int x, int y, int w, int h)
 	{
@@ -30,6 +36,8 @@ public class Rect
 		
 		this.w = w;
 		this.h = h;
+		ix = this.x;
+		iy = this.y;
 	}
 	
 	public Rect(int x, int y, int w, int h, Color c)
@@ -60,10 +68,8 @@ public class Rect
 		x += vx;
 		y += vy;
 		
-		//vy += ay;
+	//	vy += ay;
 	}
-	
-	
 	
 	public void jump(int dy)
 	{
@@ -149,6 +155,12 @@ public class Rect
 			   (my <= y+h);
 	}
 	
+	public void moveBy(int dx, int dy)
+	{
+		x += dx;
+		y += dy;
+	}
+	
 	
 	public boolean isLeftOf(Rect r)
 	{
@@ -169,15 +181,100 @@ public class Rect
 		return y > r.y + r.h - 1;
 	}
 	
-	public void chase(Rect r)
+	public void chase(Rect r, int speed)
 	{
-		if(r.isAbove  (this))   goUP(4);
-		if(r.isBelow  (this))   goDN(4);
-		if(r.isLeftOf (this))   goLT(4);
-		if(r.isRightOf(this))   goRT(4);
+		if(r.isAbove  (this))   goUP(speed);
+		if(r.isBelow  (this))   goDN(speed);
+		if(r.isLeftOf (this) )   goLT(speed);
+		if(r.isRightOf(this))   goRT(speed);
+		
+		if (overlaps(r)) {
+	        vx = 0;
+	        vy = 0;
+	    }
 	}
 	
+	   public void moveLeftRight(int leftDistance, int rightDistance, int s) {
+		   
+	        if (isMovingLeft) {
+	            goLT(s);
+	        } else {
+	            goRT(s);
+	        }
+
+	        // Change direction when reaching the left or right boundary
+	        if (x <= ix - leftDistance) {
+	            isMovingLeft = false;
+	        } else if (x >= ix + rightDistance) {
+	            isMovingLeft = true;
+	        }
+	    }
+	   
+	   public void moveUpDown(int oscillationDistance, int speed) {
+	        if (isMovingUp) {
+	            goUP(speed);
+	            if (y <= iy - oscillationDistance) {
+	                isMovingUp = false;
+	            }
+	        } else {
+	            goDN(speed);
+	            if (y >= iy + oscillationDistance) {
+	                isMovingUp = true;
+	            }
+	        }
+	    }
+	   
+	   
+	   public boolean shouldStartChasing(Rect playerRect, int distanceThreshold) {
+		    double distanceX = Math.abs(x - playerRect.x);
+		    double distanceY = Math.abs(y - playerRect.y);
+
+		    return distanceX <= distanceThreshold && distanceY <= distanceThreshold;
+		}
+	   
+	   public void moveTowardsPlayer(Rect playerRect, double speed) {
+		    // Calculate the direction vector towards the player
+		    double dx = playerRect.x - this.x;
+		    double dy = playerRect.y - this.y;
+
+		    // Calculate the length of the direction vector
+		    double length = Math.sqrt(dx * dx + dy * dy);
+
+		    // Normalize the direction vector
+		    if (length != 0) {
+		        dx /= length;
+		        dy /= length;
+		    }
+
+		    // Set the velocity based on the normalized direction vector and speed
+		    setVelocity((int) (dx * speed), (int) (dy * speed));
+		}
+	   
+	   public void shootPastPlayer(Rect playerRect, double speed) {
+	        // Calculate the direction from the AI rect to the player rect
+	        double deltaX = playerRect.x - this.x;
+	        double deltaY = playerRect.y - this.y;
+
+	        // Calculate the magnitude of the direction vector
+	        double magnitude = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+	        // Normalize the direction vector
+	        double normalizedDeltaX = deltaX / magnitude;
+	        double normalizedDeltaY = deltaY / magnitude;
+
+	        // Set the velocity based on the normalized direction vector and speed
+	        this.vx = normalizedDeltaX * speed;
+	        this.vy = normalizedDeltaY * speed;
+	        
+	        hasSetV = true;
+	    }
+
+
+
 	
+	
+	
+
 	public boolean wasLeftOf(Rect r)
 	{
 		return x - vx < r.x - w + 1;
@@ -258,7 +355,10 @@ public class Rect
 	public void draw(Graphics pen)
 	{
 		pen.setColor(c);
-		pen.drawRect((int)x, (int)y, (int)w, (int)h);
+		pen.drawRect((int)x - Camera.x, (int)y -Camera.y, (int)w, (int)h);
 	}
+	
+	
+	
 
 }
