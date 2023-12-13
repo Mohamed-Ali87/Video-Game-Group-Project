@@ -13,8 +13,12 @@ public class Game extends GameBase
 	Snake snake = new Snake(500, 600);
 	Bat bat = new Bat(2877,-4020);
 	Bat bat1 = new Bat(2161,-3830);
-	Bat bat2 = new Bat(3511,-3515
-);
+	Bat bat2 = new Bat(3511,-3515);
+	Vire vire = new Vire(2786,-3979);
+	Vire vire1 = new Vire(2290,-3836);
+	Vire vire2 = new Vire(3367,-3828);
+	Blob blob = new Blob(800,800);
+
 	
 	
 	public void initialize()
@@ -294,12 +298,21 @@ public class Game extends GameBase
 		bat.moveLeftRight(700, 700, 5);
 		bat1.moveLeftRight(0, 1400, 5);
 		bat2.moveLeftRight(1400, 0, 5);
+		vire.moveUpDown(300, 2);
+		vire1.moveUpDown(200, 2);
+		vire2.moveUpDown(300, 2);
+		blob.chase(rat, 2);
+		
 		
 		bat.move();
 		bat1.move();
 		bat2.move();
 		snake.move();
 		rat.move();
+		vire.move();
+		vire1.move();
+		vire2.move();
+		blob.move();
 		
 		for(int i = 24; i < wall.length; i++)
 		{
@@ -527,6 +540,10 @@ public class Game extends GameBase
 		bat2.draw(pen);
 		rat.draw(pen);
 		snake.draw(pen);
+		vire.draw(pen);
+		vire1.draw(pen);
+		vire2.draw(pen);
+		blob.draw(pen);
 	    
 	}
 	
